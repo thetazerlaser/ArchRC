@@ -21,7 +21,7 @@ read -s -n 1 key
 if [ "$key" == "1" ] ;then
   mkfs.ext4 $input
 fi
-if [ "$key" == "2" ] ;then
+if [ "$key" == "2" ] ;
   mkfs.ext3 $input
 fi
 if [ "$key" == "3" ] ;then
@@ -64,9 +64,9 @@ echo "Now we are ready to install the base system, press c to continue, or any o
 read -s n 1 key
 if [ "$key" == "c" ]; then
   pacstrap -i /mnt base base-devel
-  cp postinstall.sh /mnt/postinstall.sh
+  cp config.sh /mnt/root/config.sh
   genfstab -U -p /mnt >> /mnt/etc/fstab
-  echo "The base system has now been installed, you can now chroot into your new system and run postinstall.sh to configure your new system, press any key exit"
+  echo "The base system has now been installed, you can now chroot into your new system and run config.sh to configure your new system, press any key exit"
   read -s n 1
 fi
 exit
