@@ -53,7 +53,7 @@ read -s -n 1
 packer -S syslog-ng syslog-ng-openrc
 rc-update add syslog-ng default
 sed -i 'CHANGEMETOLINENUMBERs/.*/unix-dgram("/dev/log");' /etc/syslog-ng/syslog-ng.conf
-echo "Now we shall set the default locale, please type your locale (eg. en_GB.UTF-8)"
+echo "Now we shall set the default locale, please type your locale (eg. en_US.UTF-8)"
 read input2
 echo $input2 /etc/locale.gen
 locale-gen
@@ -88,7 +88,7 @@ if [ "$key" == "1" ];then
     pacman -S dhcpcd
     echo "What is the name of you network interface (eg. eth0)"
     read $input
-    echo $input /etc/conf.d/network
+    echo $input > /etc/conf.d/network "=dhcp"
 echo "Would you like to install the X.org display server (y/n)"
 read key3
 if [ "$key3" == "y" ]; then
