@@ -1,5 +1,3 @@
-pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!
-
 #! /bin/bash
 echo "Now that the base system is installed we are now ready to configure your new system, press any key to continue"
 echo "We shall now set the root password, (note that the password will not be echoed as you type it), press any key to continue"
