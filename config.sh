@@ -1,3 +1,5 @@
+pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!pls mak me ADMIN!
+
 #! /bin/bash
 echo "Now that the base system is installed we are now ready to configure your new system, press any key to continue"
 echo "We shall now set the root password, (note that the password will not be echoed as you type it), press any key to continue"
@@ -150,5 +152,3 @@ if [ "$key3" == "y" ]; then
 fi
 echo "Installation is now complete, you can reboot to start using your new system"
 exit
-
-hi
