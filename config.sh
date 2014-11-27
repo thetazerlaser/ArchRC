@@ -46,12 +46,13 @@ cd packer
 su -c "makepkg -s" - $input
 pacman -U packer-20140801.tar.xz
 echo "Now that packer is installed we can install the openrc packages from the AUR, press any key to continue"
-packer -S --noedit openrc openrcrc-arch-services-git openrc-sysvinit
-rc-update add udev sysinit
+packer -S --noedit openrc openrcrc-arch-services-git openrc-sysvinit eudev dbus-nosystemd
+rc-update add eudev sysinit
 echo "Now we have OpenRC installed it is necessary to install a syslog daemon, we will install syslog-ng, press any key to continue"
 read -s -n 1
 packer -S syslog-ng syslog-ng-openrc
 rc-update add syslog-ng default
+pacman -Rs systemd
 sed -i 'CHANGEMETOLINENUMBERs/.*/unix-dgram("/dev/log");' /etc/syslog-ng/syslog-ng.conf
 echo "Now we shall set the default locale, please type your locale (eg. en_US.UTF-8)"
 read input2
