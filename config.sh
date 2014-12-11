@@ -151,4 +151,3 @@ if [ "$key3" == "y" ]; then
 fi
 echo "Installation is now complete, you can reboot to start using your new system"
 exit
-yolo
