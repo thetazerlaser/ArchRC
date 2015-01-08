@@ -46,7 +46,7 @@ cd packer
 su -c "makepkg -s" - $input
 pacman -U packer-20140801.tar.xz
 echo "Now that packer is installed we can install the openrc packages from the AUR, press any key to continue"
-packer -S --noedit openrc openrcrc-arch-services-git openrc-sysvinit eudev dbus-nosystemd
+packer -S --noedit openrc openrcrc-arch-services-git openrc-sysvinit eudev eudev-openrc eudev-systemdcompat dbus-nosystemd
 rc-update add eudev sysinit
 echo "Now we have OpenRC installed it is necessary to install a syslog daemon, we will install syslog-ng, press any key to continue"
 read -s -n 1
