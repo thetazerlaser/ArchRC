@@ -1,5 +1,5 @@
 #! /bin/bash
-echo "Welcome to the HydrusOS installer, this script will install HydrusOS to your system, press c to continue"
+echo "Welcome to the ArchRC installer, this script will install HydrusOS to your system, press c to continue"
 read -n 1 -s key
 if [ "$key" == "c" ];then
 ping -c 3 www.google.com
