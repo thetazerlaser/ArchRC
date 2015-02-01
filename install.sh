@@ -1,5 +1,5 @@
 #! /bin/bash
-echo "Welcome to the HydrusOS installer, this script will install HydrusOS to your system, press c to continue"
+echo "Welcome to the ArchRC installer, this script will install HydrusOS to your system, press c to continue"
 read -n 1 -s key
 if [ "$key" == "c" ];then
 ping -c 3 www.google.com
@@ -16,7 +16,7 @@ if [ "$key" == "g" ] ;then
 fi
 echo "now we will format your root partition please enter the /dev entry for your root partition (eg. /dev/sda1)"
 read input
-echo "Please choose a filesystem for the root partition to use, press 1 for ext4 (recommended), 2 for ext3, 3 for ext2, 4 for btrfs (possibly unstable) or 5 for jfs or any other key to skip formatting (the install will fail if disk is unformatted)"
+echo "Please choose a filesystem for the root partition to use, press 1 for ext4 (recommended), 2 for ext3, 3 for ext2, 4 for btrfs (possibly unstable), 5 for jfs, 6 for xfs, 7 for reiser4 or any other key to skip formatting (the install will fail if disk is unformatted)"
 read -s -n 1 key
 if [ "$key" == "1" ] ;then
   mkfs.ext4 $input
@@ -32,6 +32,9 @@ if [ "$key" == "4" ] ;then
 fi
 if [ "$key" == "5" ] ;then
   mkfs.jfs $input
+fi
+if [ "$key" == "6" ] ;then
+  mkfs.xfs $input
 fi
 mount /dev/$input
 echo "do you have any seperate partitions (eg. a seperate /home), press y/n"
