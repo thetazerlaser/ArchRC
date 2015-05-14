@@ -36,6 +36,24 @@ if [ "$key" == "4" ];then
   pacman -S fish
   usermod -s /usr/bin/fish $input
 fi
+echo "Would you like to install the GRUB2 boot loader (recommended) y/n"
+read key
+if [ "$key" == "y" ];then
+  pacman -S grub
+  echo "Is your computer an EFI system? y/n"
+  read key
+  if [ "$key" == "y" ];then
+    pacman -S dosfsutils efibootmgr
+    grub-install --target=x86_64-efi --efi-directory=$esp --bootloader-id=grub --recheck
+  fi
+  if [ "$key" == "n" ];then
+    echo "Please type the location of the partition you are installing to"
+    read $input
+    grub-install --recheck /dev/$input
+    sed -i 'CHANGEMETOLINENUMBERs/.*/GRUB_CMDLINE_DEFAULT='init=/usr/bin/init-openrc'' /etc/default/grub
+    grub-mkconfig -o /boot/grub/grub.cfg
+  fi
+fi
 echo "We are ready to install the OpenRC init system to replace systemd, press any key to continue"
 read -s -n 1
 echo "First we need to install packer to install AUR packages, press any key to continue"
@@ -64,24 +82,6 @@ echo "Would you like to configure sudo? (y/n)"
 read key
 if [ "$key" == "y" ];then
   EDITOR=nano visudo
-fi
-echo "Would you like to install the GRUB2 boot loader (recommended) y/n"
-read key
-if [ "$key" == "y" ];then
-  pacman -S grub
-  echo "Is your computer an EFI system? y/n"
-  read key
-  if [ "$key" == "y" ];then
-    pacman -S dosfsutils efibootmgr
-    grub-install --target=x86_64-efi --efi-directory=$esp --bootloader-id=grub --recheck
-  fi
-  if [ "$key" == "n" ];then
-    echo "Please type the location of the partition you are installing to"
-    read $input
-    grub-install --recheck /dev/$input
-    sed -i 'CHANGEMETOLINENUMBERs/.*/GRUB_CMDLINE_DEFAULT='init=/usr/bin/init-openrc'' /etc/default/grub
-    grub-mkconfig -o /boot/grub/grub.cfg
-  fi
 fi
 echo "Would you like to configure ethernet with dhcp (y/n)"
 read $key
