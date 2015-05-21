@@ -36,24 +36,6 @@ if [ "$key" == "4" ];then
   pacman -S fish
   usermod -s /usr/bin/fish $input
 fi
-echo "Would you like to install the GRUB2 boot loader (recommended) y/n"
-read key
-if [ "$key" == "y" ];then
-  pacman -S grub
-  echo "Is your computer an EFI system? y/n"
-  read key
-  if [ "$key" == "y" ];then
-    pacman -S dosfsutils efibootmgr
-    grub-install --target=x86_64-efi --efi-directory=$esp --bootloader-id=grub --recheck
-  fi
-  if [ "$key" == "n" ];then
-    echo "Please type the location of the partition you are installing to"
-    read $input
-    grub-install --recheck /dev/$input
-    sed -i 'CHANGEMETOLINENUMBERs/.*/GRUB_CMDLINE_DEFAULT='init=/usr/bin/init-openrc'' /etc/default/grub
-    grub-mkconfig -o /boot/grub/grub.cfg
-  fi
-fi
 echo "We are ready to install the OpenRC init system to replace systemd, press any key to continue"
 read -s -n 1
 echo "First we need to install packer to install AUR packages, press any key to continue"
@@ -72,6 +54,25 @@ packer -S syslog-ng syslog-ng-openrc
 rc-update add syslog-ng default
 pacman -Rs systemd
 sed -i 'CHANGEMETOLINENUMBERs/.*/unix-dgram("/dev/log");' /etc/syslog-ng/syslog-ng.conf
+echo "Would you like to install the GRUB2 boot loader (recommended) y/n"
+read key
+if [ "$key" == "y" ];then
+  pacman -S grub
+  echo "Is your computer an EFI system? y/n"
+  read key
+  if [ "$key" == "y" ];then
+    pacman -S dosfsutils efibootmgr
+    grub-install --target=x86_64-efi --efi-directory=$esp --bootloader-id=grub --recheck
+  fi
+  if [ "$key" == "n" ];then
+    echo "Please type the location of the partition you are installing to"
+    read $input
+    grub-install --recheck /dev/$input
+    sed -i 'CHANGEMETOLINENUMBERs/.*/GRUB_CMDLINE_DEFAULT='init=/usr/bin/init-openrc'' /etc/default/grub
+    grub-mkconfig -o /boot/grub/grub.cfg
+  fi
+fi
+echo "it is necessary to reboot before continuing after reboot run config-2.sh to continue the installation"
 echo "Now we shall set the default locale, please type your locale (eg. en_US.UTF-8)"
 read input2
 echo $input2 /etc/locale.gen
